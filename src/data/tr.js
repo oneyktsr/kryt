@@ -1,0 +1,143 @@
+export const data = {
+  navigation: [
+    { name: "Projeler", path: "/projects" },
+    { name: "Stüdyo", path: "/studio" },
+    { name: "Kariyer", path: "/career" },
+    // DÜZELTME: Path artık /xvi-log
+    { name: "Log", path: "/log" },
+    { name: "İletişim", path: "/contact" },
+  ],
+  hero: {
+    title: "Dijital Deneyimler Yaratıyoruz",
+    subtitle: "Estetik ve fonksiyonu birleştiren yaratıcı stüdyo.",
+  },
+  studio: {
+    title: "Stüdyo",
+    subtitle: "Estetik ve fonksiyon odağında dijital deneyimler kurguluyoruz.",
+    description:
+      "Markaların dijital dünyada güçlü bir iz bırakmasını sağlayan yaratıcı bir ekibiz.",
+    image: "",
+  },
+  projects: {
+    title: "Seçilmiş İşler",
+    items: [
+      {
+        id: 1,
+        title: "Kozmos Kimlik",
+        category: "Marka Kimliği",
+        year: "2024",
+        slug: "kozmos-identity",
+        image: "",
+      },
+      {
+        id: 2,
+        title: "Nova Web Arayüzü",
+        category: "Web Tasarım",
+        year: "2023",
+        slug: "nova-web",
+        image: "",
+      },
+      {
+        id: 3,
+        title: "Arch Mimarlık",
+        category: "Geliştirme",
+        year: "2023",
+        slug: "arch-architecture",
+        image: "",
+      },
+      {
+        id: 4,
+        title: "Mono E-Ticaret",
+        category: "UI/UX",
+        year: "2022",
+        slug: "mono-ecommerce",
+        image: "",
+      },
+    ],
+  },
+  career: {
+    title: "Kariyer",
+    items: [
+      {
+        id: 1,
+        title: "Frontend Geliştirici",
+        location: "Uzaktan",
+        type: "Tam Zamanlı",
+        slug: "frontend-developer",
+        description: "React ve Next.js deneyimi...",
+        requirements: ["React", "GSAP"],
+      },
+      {
+        id: 2,
+        title: "UI/UX Tasarımcı",
+        location: "İstanbul",
+        type: "Hibrit",
+        slug: "ui-ux-designer",
+        description: "Tasarım sistemleri...",
+        requirements: ["Figma"],
+      },
+    ],
+  },
+  log: {
+    title: "LOG",
+    items: [
+      {
+        id: 1,
+        title: "Dijital Tasarımda Minimalizm",
+        slug: "minimalizm",
+        date: "12 Ekim 2024",
+        category: "Tasarım",
+        excerpt: "Web tasarım trendleri...",
+        content: "Detaylı yazı...",
+        image: "",
+      },
+      {
+        id: 2,
+        title: "GSAP Animasyonları",
+        slug: "gsap-animasyon",
+        date: "28 Eylül 2024",
+        category: "Yazılım",
+        excerpt: "Performans ipuçları...",
+        content: "Detaylı yazı...",
+        image: "",
+      },
+      {
+        id: 3,
+        title: "Tipografi Kuralları",
+        slug: "tipografi",
+        date: "15 Eylül 2024",
+        category: "Branding",
+        excerpt: "Doğru font seçimi...",
+        content: "Detaylı yazı...",
+        image: "",
+      },
+    ],
+  },
+  contact: {
+    title: "İletişim",
+    email: "hello@xvi.com",
+    phone: "+90 212 000 00 00",
+    address: "Maslak, İstanbul",
+    description: "Yeni bir proje için bize ulaşın.",
+  },
+  footer: {
+    title: "Birlikte bir şeyler tasarlayalım.",
+    newsletter: {
+      label: "Bülten",
+      placeholder: "E-posta adresiniz",
+      button: "Gönder",
+      note: "Spam yok. Sadece tasarım, kod ve kültür.",
+    },
+    links: {
+      sitemap: "Site Haritası",
+      socials: "Sosyal Medya",
+      contact: "İletişim",
+      legal: {
+        privacy: "Gizlilik Politikası",
+        terms: "Kullanım Koşulları",
+        rights: "Tüm hakları saklıdır.",
+        backToTop: "Yukarı Çık",
+      },
+    },
+  },
+};
