@@ -12,4 +12,9 @@ export const useStore = create((set) => ({
   // Project View Preference (Kalıcı Tercih)
   projectView: "grid", // default: grid
   setProjectView: (view) => set({ projectView: view }),
+
+  // YENİ EKLENEN: Scroll Kilidi State'i
+  // Navbar açıldığında Lenis'i ve native scroll'u durdurmak için kullanılır.
+  isScrollLocked: false,
+  setScrollLocked: (locked) => set({ isScrollLocked: locked }),
 }));

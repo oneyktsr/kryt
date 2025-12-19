@@ -33,7 +33,9 @@ export default async function ContactPage({ params }) {
             </a>
           </p>
           <p>{contact.phone}</p>
-          <div className="pt-10 mt-10 border-t border-black/10">
+
+          {/* GÜNCELLEME: border-border kullanımı */}
+          <div className="pt-10 mt-10 border-t border-border">
             <p className="text-xl opacity-60">{contact.address}</p>
             <p className="mt-4 text-lg opacity-80">{contact.description}</p>
           </div>

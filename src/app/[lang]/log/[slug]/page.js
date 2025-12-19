@@ -26,7 +26,7 @@ export default async function LogDetail({ params }) {
 
   return (
     <div className="min-h-screen layout-padding page-top-padding section-spacing">
-      {/* GERİ BUTONU */}
+      {/* Geri Butonu */}
       <div className="mb-10">
         <TransitionLink
           href={`/${lang}/log`}
@@ -36,25 +36,26 @@ export default async function LogDetail({ params }) {
         </TransitionLink>
       </div>
 
-      <div className="max-w-4xl mx-auto">
-        {/* ÜST BİLGİ */}
-        <div className="mb-12 text-center">
-          <div className="flex justify-center gap-4 mb-6 text-xs uppercase opacity-60">
+      <div className="main-grid">
+        {/* Üst Bilgi */}
+        <div className="col-span-4 mb-10 text-center md:col-span-6 xl:col-span-12 md:text-left">
+          <div className="flex justify-center gap-4 mb-6 text-xs uppercase opacity-60 md:justify-start">
             <span>{item.category}</span>
             <span>—</span>
             <span>{item.date}</span>
           </div>
-          <h1 className="text-4xl font-normal leading-tight md:text-6xl">
+          <h1 className="text-4xl font-normal leading-tight md:text-6xl xl:text-8xl">
             {item.title}
           </h1>
         </div>
 
-        {/* İÇERİK ALANI */}
-        {/* prose sınıfı kullanıyoruz ama global css ile font ayarını zorladık */}
-        <div className="prose prose-lg text-black prose-zinc max-w-none">
-          <p className="text-xl leading-relaxed whitespace-pre-line opacity-80">
-            {item.content}
-          </p>
+        {/* İçerik: Ortaya değil, Grid'e hizalı */}
+        <div className="col-span-4 md:col-span-6 xl:col-span-8 xl:col-start-3">
+          <div className="prose prose-lg text-foreground prose-zinc max-w-none">
+            <p className="text-xl leading-relaxed whitespace-pre-line opacity-80">
+              {item.content}
+            </p>
+          </div>
         </div>
       </div>
     </div>

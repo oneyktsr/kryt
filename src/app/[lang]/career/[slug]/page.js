@@ -34,37 +34,47 @@ export default async function CareerDetail({ params }) {
         </TransitionLink>
       </div>
 
-      <div className="max-w-4xl">
-        <h1 className="mb-6 text-5xl font-normal md:text-7xl">{job.title}</h1>
-
-        {/* Metadata */}
-        <div className="flex flex-wrap gap-6 mb-12 text-sm uppercase opacity-60">
-          <span>{job.location}</span>
-          <span>{job.type}</span>
+      <div className="main-grid">
+        {/* Başlık: Tam genişlik */}
+        <div className="col-span-4 mb-10 md:col-span-6 xl:col-span-12">
+          <h1 className="text-5xl font-normal md:text-7xl">{job.title}</h1>
         </div>
 
-        <div className="mb-16 space-y-10 text-xl leading-relaxed opacity-80">
-          <p>{job.description}</p>
+        {/* Sol Kolon: Metadata */}
+        <div className="col-span-4 md:col-span-2 xl:col-span-3">
+          <div className="sticky flex flex-col gap-2 text-sm uppercase opacity-60 top-32">
+            <span>{job.location}</span>
+            <span>{job.type}</span>
+            <div className="w-10 h-[1px] bg-foreground my-4 opacity-50"></div>
+            <span>Referans: {slug.toUpperCase()}</span>
+          </div>
+        </div>
+
+        {/* Sağ Kolon: İçerik */}
+        <div className="col-span-4 space-y-12 md:col-span-4 xl:col-span-8 xl:col-start-5">
+          <div className="text-xl leading-relaxed opacity-80">
+            <p>{job.description}</p>
+          </div>
 
           {job.requirements && (
             <div>
-              {/* Alt Başlık */}
-              <h3 className="mb-4 text-sm font-medium text-black uppercase opacity-100">
+              <h3 className="mb-6 text-sm font-medium uppercase opacity-100">
                 {lang === "tr" ? "Gereksinimler" : "Requirements"}
               </h3>
-              <ul className="space-y-2 list-disc list-inside">
+              <ul className="space-y-3 text-lg list-disc list-inside opacity-80">
                 {job.requirements.map((req, i) => (
                   <li key={i}>{req}</li>
                 ))}
               </ul>
             </div>
           )}
-        </div>
 
-        {/* Büyük Buton: tracking temiz */}
-        <button className="px-8 py-4 text-lg text-white transition-colors bg-black rounded-full hover:bg-brand-red">
-          {lang === "tr" ? "Başvuru Yap" : "Apply Now"}
-        </button>
+          <div className="pt-10">
+            <button className="px-8 py-4 text-lg text-white transition-colors rounded-full bg-foreground hover:opacity-80">
+              {lang === "tr" ? "Başvuru Yap" : "Apply Now"}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

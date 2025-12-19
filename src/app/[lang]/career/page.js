@@ -17,47 +17,48 @@ export default async function CareerPage({ params }) {
 
   return (
     <div className="min-h-screen layout-padding page-top-padding section-spacing">
-      <h1 className="mb-16 text-6xl font-normal">
-        {content.career?.title || "Career"}
-      </h1>
+      {/* Başlık: Grid'e tam oturması için */}
+      <div className="mb-16 main-grid">
+        <div className="col-span-4 md:col-span-12">
+          <h1 className="text-6xl font-normal">
+            {content.career?.title || "Career"}
+          </h1>
+        </div>
+      </div>
 
-      <div className="flex flex-col border-t border-black/10">
+      {/* Liste Yapısı: Negative marginler temizlendi, temiz flex/grid yapısı */}
+      <div className="w-full border-t border-border">
         {content.career?.items.map((job) => (
           <TransitionLink
             key={job.id}
             href={`/${lang}/career/${job.slug}`}
-            className="flex flex-col items-baseline justify-between gap-4 px-4 py-10 -mx-4 transition-colors border-b rounded-lg cursor-pointer border-black/10 md:flex-row hover:bg-zinc-100 group"
+            className="block w-full py-10 transition-colors border-b group border-border hover:bg-zinc-50"
           >
-            <div className="flex-1">
-              <h2 className="text-3xl font-normal transition-transform duration-300 group-hover:translate-x-2">
-                {job.title}
-              </h2>
-
-              {/* Metadata: tracking temizlendi */}
-              <div className="flex gap-4 mt-2 text-sm uppercase opacity-60">
-                <span>{job.location}</span>
-                <span>•</span>
-                <span>{job.type}</span>
+            {/* İçerik de main-grid'e oturmalı ki hizalar şaşmasın */}
+            <div className="items-baseline main-grid">
+              {/* Sol Kolon: Başlık ve Etiketler */}
+              <div className="col-span-4 md:col-span-6 xl:col-span-8">
+                <h2 className="mb-3 text-3xl font-normal transition-transform duration-300 group-hover:translate-x-2">
+                  {job.title}
+                </h2>
+                <div className="flex gap-4 text-sm uppercase opacity-60">
+                  <span>{job.location}</span>
+                  <span>•</span>
+                  <span>{job.type}</span>
+                </div>
               </div>
 
-              <p className="max-w-xl mt-4 opacity-80">{job.description}</p>
+              {/* Sağ Kolon: Açıklama ve Buton */}
+              <div className="flex flex-col items-end justify-between col-span-4 gap-4 md:col-span-6 xl:col-span-4 md:flex-row md:items-baseline">
+                <p className="text-base opacity-80 line-clamp-2 md:max-w-xs">
+                  {job.description}
+                </p>
 
-              {/* Etiketler: tracking temizlendi */}
-              <div className="flex gap-2 mt-4">
-                {job.requirements?.map((req, i) => (
-                  <span
-                    key={i}
-                    className="px-2 py-1 text-xs border rounded border-black/20"
-                  >
-                    {req}
-                  </span>
-                ))}
+                {/* Buton */}
+                <div className="px-6 py-2 text-sm text-white transition-all duration-300 transform translate-y-2 rounded-full opacity-0 bg-foreground group-hover:opacity-100 group-hover:translate-y-0 shrink-0">
+                  {lang === "tr" ? "İncele" : "View"}
+                </div>
               </div>
-            </div>
-
-            {/* Buton: tracking temizlendi */}
-            <div className="px-8 py-3 mt-4 text-sm text-white transition-opacity duration-300 transform translate-y-2 bg-black rounded-full opacity-0 md:mt-0 group-hover:opacity-100 group-hover:translate-y-0">
-              {lang === "tr" ? "İncele" : "View"}
             </div>
           </TransitionLink>
         ))}

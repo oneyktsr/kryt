@@ -143,7 +143,6 @@ export default function Preloader() {
         ref={textContainerRef}
         className="flex items-baseline text-white pointer-events-none layout-padding will-change-transform mix-blend-difference"
       >
-        {/* SAYAÇ: Tüm tracking classları silindi */}
         <span
           ref={textRef}
           className="font-medium-custom leading-none antialiased block text-[10vw] md:text-8xl whitespace-nowrap"
@@ -156,7 +155,6 @@ export default function Preloader() {
           className="ml-[1.5vw] md:ml-8"
           style={{ overflow: "hidden", display: "inline-block" }}
         >
-          {/* INTERACTIVE: Tüm tracking classları silindi */}
           <span
             ref={interactiveRef}
             className="font-medium-custom leading-none antialiased inline-block text-[10vw] md:text-8xl whitespace-nowrap"

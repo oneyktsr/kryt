@@ -8,21 +8,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        black: "#121212",
-        white: "#F4F1EC",
-        "brand-red": "#EE382B",
+        // Senin renk paletin (CSS değişkenlerinden çekecek)
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        accent: "var(--accent)",
+        border: "var(--border)",
       },
       fontFamily: {
-        sans: ["Neue Montreal", "sans-serif"],
+        // Layout.js'den gelen fontu bağlıyoruz
+        sans: ["var(--font-primary)", "sans-serif"],
+        // Senin özel 'font-medium-custom' sınıfın için
+        custom: ["var(--font-primary)", "sans-serif"],
       },
-      spacing: {
-        nav: "32px",
-        gutter: "20px", // Grid gap
-        "gap-mobile": "60px",
-        "gap-desktop": "80px",
-        "pad-mobile": "20px",
-        "pad-desktop": "40px",
-      },
+      // Grid ve Breakpoint ayarları Tailwind default değerlerinde kalsın,
+      // biz özel ayarları globals.css'te senin yaptığın gibi yöneteceğiz.
     },
   },
   plugins: [],

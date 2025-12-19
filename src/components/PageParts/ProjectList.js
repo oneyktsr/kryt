@@ -30,7 +30,7 @@ export default function ProjectList({ projects, lang }) {
 
   return (
     <div>
-      {/* Butonlar: tracking yok, sadece uppercase */}
+      {/* View Switcher */}
       <div className="flex justify-end gap-4 mb-10 text-sm uppercase">
         <button
           onClick={() => handleViewChange("grid")}
@@ -70,7 +70,13 @@ export default function ProjectList({ projects, lang }) {
                       alt={item.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      // PERFORMANS OPTİMİZASYONU:
+                      // Mobilde (768px altı): Ekranın %100'ü (100vw)
+                      // Tablette (1280px altı): Ekranın %50'si (2 kolon)
+                      // Masaüstünde: Ekranın %50'si (2 kolon)
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 50vw"
+                      // Opsiyonel: İlk 4 projeyi öncelikli yükle (LCP artırır)
+                      priority={item.id <= 4}
                     />
                   ) : (
                     <div className="w-full h-full bg-zinc-300"></div>
@@ -78,7 +84,6 @@ export default function ProjectList({ projects, lang }) {
                 </div>
                 <div className="flex items-baseline justify-between">
                   <h2 className="text-2xl font-normal">{item.title}</h2>
-                  {/* Kategori: tracking yok */}
                   <span className="text-sm uppercase opacity-60">
                     {item.category}
                   </span>
@@ -89,15 +94,14 @@ export default function ProjectList({ projects, lang }) {
         )}
 
         {projectView === "list" && (
-          <div className="flex flex-col border-t border-black/10">
+          <div className="flex flex-col border-t border-border">
             {projects.map((item) => (
               <TransitionLink
                 key={item.id}
                 href={`/${lang}/projects/${item.slug}`}
-                className="flex items-center justify-between px-4 py-10 transition-all duration-500 border-b rounded-lg group border-black/10 hover:bg-black hover:text-white"
+                className="flex items-center justify-between px-4 py-10 transition-all duration-500 border-b rounded-lg group border-border hover:bg-foreground hover:text-background"
               >
                 <h2 className="flex-1 text-3xl font-normal">{item.title}</h2>
-                {/* Kategori: tracking yok */}
                 <span className="text-sm uppercase opacity-50 group-hover:opacity-100">
                   {item.category}
                 </span>

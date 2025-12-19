@@ -1,54 +1,51 @@
 @import "tailwindcss";
 
-/* 1. Font Yüklemeleri */
-@font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+@import "tailwindcss";
 
-@font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* 2. Değişkenler */
+/* 1. DEĞİŞKENLER (Senin orijinal ayarların) */
 :root {
+  /* Renkler */
   --background: #f4f1ec;
   --foreground: #121212;
   --accent: #ee382b;
+  --border: rgba(18, 18, 18, 0.1);
+
+  /* Responsive Boşluklar (Mobil) */
   --nav-top: 20px;
-  --padding-x: 20px;
+  --padding-x: 20px; /* Mobilde sağ/sol 20px */
+  --nav-height: 80px;
 }
 
 @media (min-width: 768px) {
   :root {
+    /* Responsive Boşluklar (Tablet/Desktop) */
     --nav-top: 40px;
-    --padding-x: 40px;
+    --padding-x: 40px; /* Masaüstünde sağ/sol 40px */
   }
 }
 
-/* 3. Base Katmanı */
+/* 2. BASE KATMANI (Tipografi ve Reset) */
 @layer base {
   body {
     @apply font-sans antialiased;
 
-    /* Tailwind @apply hatasını önlemek için standart CSS kullanıyoruz */
+    /* Renk ve Zemin */
     color: var(--foreground);
     background-color: var(--background);
 
-    font-family: "Neue Montreal", sans-serif;
+    /* Font Render İyileştirmesi */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 
-    /* TÜM SİTE İÇİN SABİT HARF ARALIĞI: -0.02em */
+    /* SENİN İMZAN: Tüm sitede sıkışık harf aralığı */
     letter-spacing: -0.02em;
+
+    overflow-x: hidden;
+    width: 100%;
   }
 
-  /* Garanti olması için tüm metin etiketlerini kapsıyoruz */
+  /* Başlık ve metinlerin hepsini kapsa */
   h1,
   h2,
   h3,
@@ -68,42 +65,56 @@
   }
 }
 
-/* Log/Blog detaylarında kullanılan .prose sınıfı, tarayıcı varsayılanlarını getirebilir.
-   Bunu engellemek için prose içindeki elemanları da zorluyoruz.
-*/
-.prose :where(p, h1, h2, h3, h4, h5, ul, li, span, strong, a) {
-  letter-spacing: -0.02em !important;
-}
-
-/* 4. Özel Sınıflar ve Bileşenler */
-.font-medium-custom {
-  font-family: "Neue Montreal", sans-serif;
-  font-weight: 500;
-}
-
-#main-content {
-  will-change: opacity;
-}
-
-@layer utilities {
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-}
-
+/* 3. ÖZEL BİLEŞENLER (Senin grid ve padding yapın) */
 @layer components {
+  /* Layout Padding: Değişkene bağlı dinamik yapı */
   .layout-padding {
     padding-left: var(--padding-x);
     padding-right: var(--padding-x);
     width: 100%;
   }
-  .section-spacing {
-    @apply mb-[60px] md:mb-[80px];
-  }
-  .page-top-padding {
-    @apply pt-[100px] md:pt-[140px];
-  }
+
+  /* Grid Sistemi: 20px boşluk, responsive kolonlar */
   .main-grid {
     @apply grid gap-[20px] grid-cols-4 md:grid-cols-6 xl:grid-cols-12;
   }
+
+  /* Sayfa Üst Boşluğu */
+  .page-top-padding {
+    @apply pt-[100px] md:pt-[140px];
+  }
+
+  /* Bölüm Boşlukları */
+  .section-spacing {
+    @apply mb-[60px] md:mb-[80px];
+  }
+
+  /* Navbar Yüksekliği */
+  .h-nav {
+    height: var(--nav-height);
+  }
+
+  /* Özel Font Ağırlığı */
+  .font-medium-custom {
+    font-family: var(--font-primary);
+    font-weight: 500;
+  }
+
+  /* Performans ve Animasyon */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+/* Prose (CMS İçerikleri) Ayarları */
+.prose :where(p, h1, h2, h3, h4, h5, ul, li, span, strong, a) {
+  letter-spacing: -0.02em !important;
+}
+
+#main-content {
+  will-change: opacity;
 }

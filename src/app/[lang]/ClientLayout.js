@@ -1,22 +1,24 @@
 "use client";
+
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation"; // Pathname eklendi
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import Navbar from "@/components/Global/Navbar";
 import Footer from "@/components/Global/Footer";
 import Preloader from "@/components/Global/Preloader";
 import PageTransition from "@/components/Global/PageTransition";
 import { useStore } from "@/hooks/useStore";
+// 1. EKSİK OLAN IMPORT GERİ GELDİ
 import { TransitionProvider } from "@/context/TransitionContext";
 
 export default function ClientLayout({ children, lang }) {
-  const { isLoaded } = useStore();
-  const pathname = usePathname(); // Sayfa değişimini takip etmek için
-  const lenisRef = useRef(null); // Lenis örneğini tutmak için
+  // isScrollLocked state'ini store'dan alıyoruz
+  const { isLoaded, isScrollLocked } = useStore();
+  const pathname = usePathname();
+  const lenisRef = useRef(null);
 
-  // 1. Lenis Başlatma ve Scroll Restorasyonu Kapatma
+  // 1. Lenis Başlatma
   useEffect(() => {
-    // Tarayıcının kendi scroll hafızasını kapatıyoruz (Biz yöneteceğiz)
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
@@ -25,7 +27,7 @@ export default function ClientLayout({ children, lang }) {
       duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: true, // Dokunmatik cihazlarda da senkronize olsun
+      syncTouch: true,
     });
 
     lenisRef.current = lenis;
@@ -42,21 +44,31 @@ export default function ClientLayout({ children, lang }) {
     };
   }, []);
 
-  // 2. Sayfa Değiştiğinde Lenis'i ve Scroll'u SIFIRLA
+  // 2. SCROLL KİLİDİ (Navbar açılınca Lenis'i durdurur)
   useEffect(() => {
-    // Native scroll'u sıfırla
-    window.scrollTo(0, 0);
+    if (!lenisRef.current) return;
 
-    // Lenis'i zorla en başa al (immediate: true animasyonsuz anında ışınlar)
+    if (isScrollLocked) {
+      lenisRef.current.stop(); // Kilitle
+    } else {
+      lenisRef.current.start(); // Aç
+    }
+  }, [isScrollLocked]);
+
+  // 3. Sayfa Değişimi Reset
+  useEffect(() => {
+    window.scrollTo(0, 0);
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
-  }, [pathname]); // Her sayfa değişiminde çalışır
+  }, [pathname]);
 
   return (
+    // 2. KAPSAYICI GERİ GELDİ (Hatayı çözen kısım)
     <TransitionProvider>
       <div className="relative w-full min-h-screen text-black bg-zinc-100">
         {!isLoaded && <Preloader />}
+
         <Navbar lang={lang} />
 
         <main id="main-content" className="w-full min-h-screen">
