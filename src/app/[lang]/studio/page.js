@@ -22,7 +22,7 @@ export default async function StudioPage({ params }) {
         {content.studio?.title || (lang === "tr" ? "Stüdyo" : "Studio")}
       </h1>
 
-      <div className="w-full aspect-[16/9] bg-zinc-300 mb-20 relative rounded-lg overflow-hidden">
+      <div className="w-full aspect-[16/9] bg-zinc-200 mb-20 relative rounded-lg overflow-hidden">
         {content.studio?.image ? (
           <Image
             src={content.studio.image}
@@ -46,7 +46,7 @@ export default async function StudioPage({ params }) {
         <div className="col-span-4 md:col-span-3 xl:col-span-6 xl:col-start-7">
           <div className="space-y-8 text-xl leading-relaxed opacity-80">
             <p>{content.studio?.description}</p>
-            <p>We believe in the power of design...</p>
+            {/* Ekstra metinleri data dosyasından çekmek daha sağlıklı olur */}
           </div>
         </div>
       </div>

@@ -1,120 +1,110 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
-
-/* 1. DEĞİŞKENLER (Senin orijinal ayarların) */
+/* 1. Değişkenler (Renkler ve Layout) */
 :root {
-  /* Renkler */
   --background: #f4f1ec;
   --foreground: #121212;
   --accent: #ee382b;
-  --border: rgba(18, 18, 18, 0.1);
+  --border: rgba(18, 18, 18, 0.1); /* Merkezi Border Rengi */
 
-  /* Responsive Boşluklar (Mobil) */
+  /* Layout Değişkenleri */
   --nav-top: 20px;
-  --padding-x: 20px; /* Mobilde sağ/sol 20px */
+  --padding-x: 20px;
   --nav-height: 80px;
 }
 
 @media (min-width: 768px) {
   :root {
-    /* Responsive Boşluklar (Tablet/Desktop) */
     --nav-top: 40px;
-    --padding-x: 40px; /* Masaüstünde sağ/sol 40px */
+    --padding-x: 40px;
   }
 }
 
-/* 2. BASE KATMANI (Tipografi ve Reset) */
+/* 2. Base Katmanı (Sıfırlama ve Font Ayarları) */
 @layer base {
   body {
     @apply font-sans antialiased;
 
-    /* Renk ve Zemin */
     color: var(--foreground);
     background-color: var(--background);
 
-    /* Font Render İyileştirmesi */
+    /* Font Yönetimi: Sadece Layout.js'den gelen değişkene bak */
+    font-family: var(--font-primary), sans-serif;
+
+    /* Font Pürüzsüzleştirme (Tüm ekranlarda aynı incelik için şart) */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 
-    /* SENİN İMZAN: Tüm sitede sıkışık harf aralığı */
-    letter-spacing: -0.02em;
-
-    overflow-x: hidden;
-    width: 100%;
+    /* Global Harf Aralığı: -0.01em en güvenli ortalamadır */
+    letter-spacing: -0.01em;
   }
 
-  /* Başlık ve metinlerin hepsini kapsa */
+  /* Başlıklar */
   h1,
   h2,
   h3,
   h4,
   h5,
-  h6,
+  h6 {
+    @apply font-normal; /* Kalınlığı sıfırla, Regular kullan */
+    letter-spacing: -0.02em; /* Başlıklar biraz daha sıkı */
+  }
+
+  /* Metinler */
   p,
   span,
   a,
   li,
-  ul,
+  div,
   button,
   input,
-  textarea,
-  div {
-    letter-spacing: -0.02em;
+  textarea {
+    letter-spacing: -0.01em;
   }
 }
 
-/* 3. ÖZEL BİLEŞENLER (Senin grid ve padding yapın) */
-@layer components {
-  /* Layout Padding: Değişkene bağlı dinamik yapı */
-  .layout-padding {
-    padding-left: var(--padding-x);
-    padding-right: var(--padding-x);
-    width: 100%;
-  }
+/* CMS/Prose İçerikleri İçin Ayarlar */
+.prose :where(h1, h2, h3, h4, h5) {
+  letter-spacing: -0.02em !important;
+  font-weight: 400 !important;
+}
+.prose :where(p, ul, li, span, strong, a) {
+  letter-spacing: -0.01em !important;
+}
 
-  /* Grid Sistemi: 20px boşluk, responsive kolonlar */
-  .main-grid {
-    @apply grid gap-[20px] grid-cols-4 md:grid-cols-6 xl:grid-cols-12;
-  }
+/* 3. Özel Sınıflar */
+.font-medium-custom {
+  font-family: var(--font-primary), sans-serif;
+  font-weight: 500;
+}
 
-  /* Sayfa Üst Boşluğu */
-  .page-top-padding {
-    @apply pt-[100px] md:pt-[140px];
-  }
+#main-content {
+  will-change: opacity;
+}
 
-  /* Bölüm Boşlukları */
-  .section-spacing {
-    @apply mb-[60px] md:mb-[80px];
-  }
-
-  /* Navbar Yüksekliği */
-  .h-nav {
-    height: var(--nav-height);
-  }
-
-  /* Özel Font Ağırlığı */
-  .font-medium-custom {
-    font-family: var(--font-primary);
-    font-weight: 500;
-  }
-
-  /* Performans ve Animasyon */
-  .will-change-transform {
-    will-change: transform;
-  }
-
+@layer utilities {
   .backface-hidden {
     backface-visibility: hidden;
   }
 }
 
-/* Prose (CMS İçerikleri) Ayarları */
-.prose :where(p, h1, h2, h3, h4, h5, ul, li, span, strong, a) {
-  letter-spacing: -0.02em !important;
-}
-
-#main-content {
-  will-change: opacity;
+@layer components {
+  .layout-padding {
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-x);
+    width: 100%;
+  }
+  .section-spacing {
+    @apply mb-[60px] md:mb-[80px];
+  }
+  .page-top-padding {
+    @apply pt-[100px] md:pt-[140px];
+  }
+  .main-grid {
+    @apply grid gap-[20px] grid-cols-4 md:grid-cols-6 xl:grid-cols-12;
+  }
+  .h-nav {
+    height: var(--nav-height);
+  }
 }

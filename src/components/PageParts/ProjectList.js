@@ -55,6 +55,7 @@ export default function ProjectList({ projects, lang }) {
       </div>
 
       <div ref={containerRef} className="opacity-100">
+        {/* GRID GÖRÜNÜMÜ */}
         {projectView === "grid" && (
           <div className="main-grid section-spacing">
             {projects.map((item) => (
@@ -70,12 +71,7 @@ export default function ProjectList({ projects, lang }) {
                       alt={item.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      // PERFORMANS OPTİMİZASYONU:
-                      // Mobilde (768px altı): Ekranın %100'ü (100vw)
-                      // Tablette (1280px altı): Ekranın %50'si (2 kolon)
-                      // Masaüstünde: Ekranın %50'si (2 kolon)
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 50vw"
-                      // Opsiyonel: İlk 4 projeyi öncelikli yükle (LCP artırır)
                       priority={item.id <= 4}
                     />
                   ) : (
@@ -93,6 +89,7 @@ export default function ProjectList({ projects, lang }) {
           </div>
         )}
 
+        {/* LİSTE GÖRÜNÜMÜ */}
         {projectView === "list" && (
           <div className="flex flex-col border-t border-border">
             {projects.map((item) => (

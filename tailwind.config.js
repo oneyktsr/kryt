@@ -8,21 +8,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Senin renk paletin (CSS değişkenlerinden çekecek)
         background: "var(--background)",
         foreground: "var(--foreground)",
         accent: "var(--accent)",
-        border: "var(--border)",
+        border: "var(--border)", // Yeni eklenen border değişkeni
       },
       fontFamily: {
-        // Layout.js'den gelen fontu bağlıyoruz
+        // Layout.js'den gelen değişken
         sans: ["var(--font-primary)", "sans-serif"],
-        // Senin özel 'font-medium-custom' sınıfın için
         custom: ["var(--font-primary)", "sans-serif"],
       },
-      // Grid ve Breakpoint ayarları Tailwind default değerlerinde kalsın,
-      // biz özel ayarları globals.css'te senin yaptığın gibi yöneteceğiz.
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"), // CMS içeriği için gerekli
+  ],
 };

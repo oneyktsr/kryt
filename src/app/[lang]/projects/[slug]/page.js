@@ -24,7 +24,6 @@ export default async function ProjectDetail({ params }) {
 
   return (
     <div className="min-h-screen layout-padding page-top-padding section-spacing">
-      {/* Geri Butonu: tracking yok */}
       <div className="mb-10">
         <TransitionLink
           href={`/${lang}/projects`}
@@ -48,7 +47,7 @@ export default async function ProjectDetail({ params }) {
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-zinc-800" />
+            <div className="w-full h-full bg-zinc-200" />
           )}
         </div>
 
