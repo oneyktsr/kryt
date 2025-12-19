@@ -12,7 +12,6 @@ export async function generateMetadata({ params }) {
   return {
     title: project.title,
     description: `${project.title} - ${project.category}`,
-    alternates: { canonical: `/${lang}/projects/${slug}` },
   };
 }
 
@@ -32,11 +31,9 @@ export default async function ProjectDetail({ params }) {
           ← {lang === "tr" ? "Tüm Projeler" : "All Projects"}
         </TransitionLink>
       </div>
-
       <h1 className="mb-10 text-5xl font-normal md:text-8xl">
         {project.title}
       </h1>
-
       <div className="mb-20 main-grid">
         <div className="relative col-span-4 overflow-hidden rounded-lg md:col-span-6 xl:col-span-12 aspect-video bg-zinc-200">
           {project.image ? (
@@ -50,7 +47,6 @@ export default async function ProjectDetail({ params }) {
             <div className="w-full h-full bg-zinc-200" />
           )}
         </div>
-
         <div className="col-span-4 mt-10 md:col-span-2">
           <h3 className="mb-2 text-xs uppercase opacity-60">Category</h3>
           <p className="text-xl">{project.category}</p>

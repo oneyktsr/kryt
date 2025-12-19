@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
-/* 1. Değişkenler (Renkler ve Layout) */
+/* 1. DEĞİŞKENLER */
 :root {
   --background: #f4f1ec;
   --foreground: #121212;
   --accent: #ee382b;
-  --border: rgba(18, 18, 18, 0.1); /* Merkezi Border Rengi */
+  --border: rgba(18, 18, 18, 0.1);
 
   /* Layout Değişkenleri */
   --nav-top: 20px;
@@ -20,91 +20,105 @@
   }
 }
 
-/* 2. Base Katmanı (Sıfırlama ve Font Ayarları) */
+/* 2. BASE KATMANI */
 @layer base {
   body {
-    @apply font-sans antialiased;
-
-    color: var(--foreground);
+    /* Renkleri ve Fontu Direkt Atıyoruz (Hata Riskini Sıfırlar) */
     background-color: var(--background);
-
-    /* Font Yönetimi: Sadece Layout.js'den gelen değişkene bak */
+    color: var(--foreground);
     font-family: var(--font-primary), sans-serif;
 
-    /* Font Pürüzsüzleştirme (Tüm ekranlarda aynı incelik için şart) */
+    @apply antialiased;
+
+    /* Font Render İyileştirmesi */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 
-    /* Global Harf Aralığı: -0.01em en güvenli ortalamadır */
-    letter-spacing: -0.01em;
+    /* Global Tracking */
+    letter-spacing: -0.02em;
+
+    overflow-x: hidden;
+    width: 100%;
   }
 
-  /* Başlıklar */
+  /* Tüm Başlıklar ve Metinler */
   h1,
   h2,
   h3,
   h4,
   h5,
-  h6 {
-    @apply font-normal; /* Kalınlığı sıfırla, Regular kullan */
-    letter-spacing: -0.02em; /* Başlıklar biraz daha sıkı */
-  }
-
-  /* Metinler */
+  h6,
   p,
   span,
   a,
   li,
-  div,
+  ul,
   button,
   input,
-  textarea {
-    letter-spacing: -0.01em;
+  textarea,
+  div {
+    letter-spacing: -0.02em;
   }
 }
 
-/* CMS/Prose İçerikleri İçin Ayarlar */
+/* CMS (Prose) İçerikleri */
 .prose :where(h1, h2, h3, h4, h5) {
   letter-spacing: -0.02em !important;
   font-weight: 400 !important;
+  color: var(--foreground) !important;
 }
 .prose :where(p, ul, li, span, strong, a) {
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.02em !important;
+  color: var(--foreground) !important;
+  opacity: 0.8;
 }
 
-/* 3. Özel Sınıflar */
-.font-medium-custom {
-  font-family: var(--font-primary), sans-serif;
-  font-weight: 500;
-}
+/* 3. ÖZEL BİLEŞENLER */
+@layer components {
+  /* HATA ÇÖZÜMÜ: Birbirini @apply ile çağırmak yerine virgülle birleştirdik */
 
-#main-content {
-  will-change: opacity;
-}
+  /* 1. Padding Grupları */
+  .container-padding,
+  .layout-padding {
+    @apply px-5 md:px-10 lg:px-14 xl:px-20;
+  }
 
-@layer utilities {
+  /* 2. Grid Grupları */
+  .grid-layout,
+  .main-grid {
+    @apply grid grid-cols-4 gap-5 md:grid-cols-6 xl:grid-cols-12;
+  }
+
+  /* 3. Diğer Yardımcılar */
+  .page-top-padding {
+    @apply pt-[100px] md:pt-[140px];
+  }
+
+  .section-spacing {
+    @apply mb-[60px] md:mb-[80px];
+  }
+
+  /* Navbar Yüksekliği */
+  .h-nav {
+    height: var(--nav-height);
+  }
+
+  /* Font Yardımcıları */
+  .font-medium-custom {
+    font-family: var(--font-primary);
+    font-weight: 500;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
   .backface-hidden {
     backface-visibility: hidden;
   }
 }
 
-@layer components {
-  .layout-padding {
-    padding-left: var(--padding-x);
-    padding-right: var(--padding-x);
-    width: 100%;
-  }
-  .section-spacing {
-    @apply mb-[60px] md:mb-[80px];
-  }
-  .page-top-padding {
-    @apply pt-[100px] md:pt-[140px];
-  }
-  .main-grid {
-    @apply grid gap-[20px] grid-cols-4 md:grid-cols-6 xl:grid-cols-12;
-  }
-  .h-nav {
-    height: var(--nav-height);
-  }
+#main-content {
+  will-change: opacity;
 }

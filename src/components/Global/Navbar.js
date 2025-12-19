@@ -12,13 +12,12 @@ export default function Navbar({ lang }) {
   const content = lang === "tr" ? trData : enData;
   const pathname = usePathname();
   const router = useRouter();
-  const { showLogo, setScrollLocked } = useStore(); // setScrollLocked buradan geliyor
+  const { showLogo, setScrollLocked } = useStore();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Referanslar
-  const menuRef = useRef(null); // Siyah Perde
-  const menuTextsRef = useRef([]); // Hareket Eden Metinler
+  const menuRef = useRef(null);
+  const menuTextsRef = useRef([]);
   const topLineRef = useRef(null);
   const bottomLineRef = useRef(null);
 
@@ -29,17 +28,14 @@ export default function Navbar({ lang }) {
     return segments.join("/");
   };
 
-  // 1. BAŞLANGIÇ KONUMLARI (Layout Effect ile Titremeyi Önle)
   useLayoutEffect(() => {
-    // Perde yukarıda gizli
     gsap.set(menuRef.current, { y: "-100%" });
-    // Metinler aşağıda gizli (Maskenin altında)
+    // Metin referanslarını kontrol et
     if (menuTextsRef.current.length > 0) {
       gsap.set(menuTextsRef.current, { y: "105%" });
     }
   }, []);
 
-  // 2. SAYFA DEĞİŞİMİNDE MENÜYÜ KAPAT
   useEffect(() => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
@@ -53,36 +49,26 @@ export default function Navbar({ lang }) {
     }
   }, [pathname, setScrollLocked]);
 
-  // 3. MENÜ AÇMA FONKSİYONU
   const openMenu = () => {
     setIsMenuOpen(true);
-    setScrollLocked(true); // Scroll Kilitle
+    setScrollLocked(true);
 
     const tl = gsap.timeline();
 
-    // ADIM 1: Siyah Perde İniyor (Hızlı)
     tl.to(menuRef.current, {
       y: "0%",
       duration: 0.8,
       ease: "power4.inOut",
     });
 
-    // ADIM 2: Metinler Çıkıyor
-    // Perde inmesi bitmeye yakın (>-0.2) metinler yukarı fırlıyor
     if (menuTextsRef.current.length > 0) {
       tl.to(
         menuTextsRef.current,
-        {
-          y: "0%",
-          duration: 0.6,
-          stagger: 0.05,
-          ease: "power2.out",
-        },
+        { y: "0%", duration: 0.6, stagger: 0.05, ease: "power2.out" },
         ">-0.2"
       );
     }
 
-    // İkon Animasyonu
     gsap.to(topLineRef.current, {
       rotation: 45,
       y: 4,
@@ -97,17 +83,15 @@ export default function Navbar({ lang }) {
     });
   };
 
-  // 4. MENÜ KAPATMA FONKSİYONU
   const closeMenu = (onCompleteCallback) => {
     const tl = gsap.timeline({
       onComplete: () => {
         setIsMenuOpen(false);
-        setScrollLocked(false); // Scroll Kilidini Aç
+        setScrollLocked(false);
         if (onCompleteCallback) onCompleteCallback();
       },
     });
 
-    // Kapanış: Metinler aşağı düşüyor
     if (menuTextsRef.current.length > 0) {
       tl.to(menuTextsRef.current, {
         y: "105%",
@@ -117,14 +101,9 @@ export default function Navbar({ lang }) {
       });
     }
 
-    // Perde kalkıyor
     tl.to(
       menuRef.current,
-      {
-        y: "-100%",
-        duration: 0.8,
-        ease: "power4.inOut",
-      },
+      { y: "-100%", duration: 0.8, ease: "power4.inOut" },
       "-=0.1"
     );
 
@@ -162,8 +141,6 @@ export default function Navbar({ lang }) {
     });
   };
 
-  // DÜZELTME: Ref dizisini her render'da sıfırlamıyoruz!
-  // Sadece eklerken kontrol ediyoruz.
   const addToTexts = (el) => {
     if (el && !menuTextsRef.current.includes(el)) {
       menuTextsRef.current.push(el);
@@ -173,7 +150,7 @@ export default function Navbar({ lang }) {
   return (
     <>
       <nav
-        className="fixed left-0 z-50 flex items-baseline justify-between w-full text-white transition-all duration-300 h-nav layout-padding mix-blend-difference"
+        className="fixed left-0 z-50 flex items-baseline justify-between w-full transition-all duration-300 text-background h-nav layout-padding mix-blend-difference"
         style={{ top: "var(--nav-top)" }}
       >
         <TransitionLink
@@ -233,20 +210,19 @@ export default function Navbar({ lang }) {
         >
           <span
             ref={topLineRef}
-            className="w-full h-[2px] bg-white block origin-center transition-transform"
+            className="w-full h-[2px] bg-background block origin-center transition-transform"
           ></span>
           <span
             ref={bottomLineRef}
-            className="w-full h-[2px] bg-white block origin-center transition-transform"
+            className="w-full h-[2px] bg-background block origin-center transition-transform"
           ></span>
         </button>
       </nav>
 
-      {/* MOBILE MENU OVERLAY */}
+      {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
-        // h-[100dvh] mobil tarayıcılar için daha güvenli
-        className="fixed inset-0 w-full h-[100dvh] bg-[#121212] z-40 flex flex-col justify-between layout-padding py-32 md:hidden"
+        className="fixed inset-0 w-full h-[100dvh] bg-foreground z-40 flex flex-col justify-between layout-padding py-32 md:hidden"
       >
         <div className="flex flex-col gap-6">
           {content.navigation.map((item, index) => (
@@ -254,10 +230,12 @@ export default function Navbar({ lang }) {
               <a
                 href={`/${lang}${item.path}`}
                 onClick={(e) => handleMobileNav(e, `/${lang}${item.path}`)}
-                className="block text-[#f4f1ec] text-5xl font-normal font-medium-custom leading-tight cursor-pointer"
+                className="block text-5xl font-normal leading-tight cursor-pointer text-background font-medium-custom"
               >
-                {/* DÜZELTME: Tailwind 'translate-y' sınıfını kaldırdık, GSAP yönetecek */}
-                <div ref={addToTexts} className="will-change-transform">
+                <div
+                  ref={addToTexts}
+                  className="will-change-transform translate-y-[105%]"
+                >
                   {item.name}
                 </div>
               </a>
@@ -269,7 +247,7 @@ export default function Navbar({ lang }) {
           <div className="overflow-hidden">
             <div
               ref={addToTexts}
-              className="flex gap-4 text-[#f4f1ec] text-xl font-normal font-medium-custom opacity-60 will-change-transform"
+              className="flex gap-4 text-background text-xl font-normal font-medium-custom opacity-60 will-change-transform translate-y-[105%]"
             >
               <a
                 href={getSwitchLink("tr")}
@@ -292,13 +270,15 @@ export default function Navbar({ lang }) {
               </a>
             </div>
           </div>
-
           <div className="overflow-hidden">
             <a
               href={`mailto:${content.contact.email}`}
-              className="block text-[#f4f1ec] opacity-40 text-sm uppercase tracking-tight"
+              className="block text-sm tracking-tight uppercase text-background opacity-40"
             >
-              <div ref={addToTexts} className="will-change-transform">
+              <div
+                ref={addToTexts}
+                className="will-change-transform translate-y-[105%]"
+              >
                 {content.contact.email}
               </div>
             </a>

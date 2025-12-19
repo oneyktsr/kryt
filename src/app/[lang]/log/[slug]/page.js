@@ -7,26 +7,18 @@ export async function generateMetadata({ params }) {
   const { lang, slug } = await params;
   const content = lang === "tr" ? trData : enData;
   const item = content.log?.items.find((i) => i.slug === slug);
-
   if (!item) return { title: "Not Found" };
-
-  return {
-    title: item.title,
-    description: item.excerpt,
-    alternates: { canonical: `/${lang}/log/${slug}` },
-  };
+  return { title: item.title };
 }
 
 export default async function LogDetail({ params }) {
   const { lang, slug } = await params;
   const content = lang === "tr" ? trData : enData;
   const item = content.log?.items.find((i) => i.slug === slug);
-
   if (!item) notFound();
 
   return (
     <div className="min-h-screen layout-padding page-top-padding section-spacing">
-      {/* Geri Butonu */}
       <div className="mb-10">
         <TransitionLink
           href={`/${lang}/log`}
@@ -35,9 +27,7 @@ export default async function LogDetail({ params }) {
           ← {lang === "tr" ? "Log'a Dön" : "Back to Log"}
         </TransitionLink>
       </div>
-
       <div className="main-grid">
-        {/* Üst Bilgi */}
         <div className="col-span-4 mb-10 text-center md:col-span-6 xl:col-span-12 md:text-left">
           <div className="flex justify-center gap-4 mb-6 text-xs uppercase opacity-60 md:justify-start">
             <span>{item.category}</span>
@@ -48,8 +38,6 @@ export default async function LogDetail({ params }) {
             {item.title}
           </h1>
         </div>
-
-        {/* İçerik: Ortaya değil, Grid'e hizalı */}
         <div className="col-span-4 md:col-span-6 xl:col-span-8 xl:col-start-3">
           <div className="prose prose-lg text-foreground prose-zinc max-w-none">
             <p className="text-xl leading-relaxed whitespace-pre-line opacity-80">

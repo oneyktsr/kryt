@@ -1,10 +1,10 @@
-import "./../globals.css";
+import "../globals.css";
 import localFont from "next/font/local";
 import ClientLayout from "./ClientLayout";
 import { data as trData } from "@/data/tr";
 import { data as enData } from "@/data/en";
 
-// Font Tanımı: public/fonts klasöründen çeker
+// Font Tanımı
 const neueMontreal = localFont({
   src: [
     {
@@ -39,10 +39,6 @@ export async function generateMetadata({ params }) {
       default: "XVI Interactive",
     },
     description: content.hero?.subtitle || "Digital Experiences",
-    robots: {
-      index: true,
-      follow: true,
-    },
   };
 }
 

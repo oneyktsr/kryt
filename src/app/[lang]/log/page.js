@@ -4,11 +4,7 @@ import TransitionLink from "@/components/UI/TransitionLink";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
-  return {
-    title: "Log",
-    description: "Thoughts, ideas and culture.",
-    alternates: { canonical: `/${lang}/log` },
-  };
+  return { title: "Log" };
 }
 
 export default async function LogPage({ params }) {
@@ -20,7 +16,6 @@ export default async function LogPage({ params }) {
   return (
     <div className="min-h-screen layout-padding page-top-padding section-spacing">
       <h1 className="mb-16 text-6xl font-normal">{pageTitle}</h1>
-
       <div className="main-grid">
         {content.log?.items.map((item) => (
           <TransitionLink
@@ -33,8 +28,6 @@ export default async function LogPage({ params }) {
                 Asset
               </div>
             </div>
-
-            {/* DÜZELTME: border-border */}
             <div className="flex items-baseline justify-between pb-3 mb-3 border-b border-border">
               <span className="text-xs font-medium uppercase opacity-60">
                 {item.category}
@@ -43,11 +36,9 @@ export default async function LogPage({ params }) {
                 {item.date}
               </span>
             </div>
-
             <h2 className="mb-3 text-3xl font-normal leading-tight group-hover:underline decoration-1 underline-offset-4">
               {item.title}
             </h2>
-
             <p className="mt-auto text-base leading-relaxed opacity-60 line-clamp-3">
               {item.excerpt}
             </p>

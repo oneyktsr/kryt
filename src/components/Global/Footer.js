@@ -20,25 +20,20 @@ export default function Footer({ lang }) {
   const logoText = "XVI INTERACTIVE".split("");
 
   return (
-    // DÜZELTME 1: 'font-sans' ekleyerek ana fontu en baştan zorladık.
-    <footer className="w-full pt-20 mt-20 overflow-hidden font-sans border-t bg-zinc-100 md:pt-40 md:mt-40 border-black/10">
-      {/* 1. ANA İÇERİK BÖLÜMÜ */}
-      <div className="layout-padding">
-        {/* Üst Kısım: Devasa Başlık (Let's Talk) ve Newsletter */}
-        <div className="mb-20 main-grid md:mb-32">
-          {/* Sol: Devasa Tıklanabilir Başlık */}
+    <footer className="w-full pt-20 mt-20 overflow-hidden border-t md:pt-40 bg-background md:mt-40 border-border">
+      <div className="flex flex-col h-full container-padding">
+        {/* ÜST KISIM */}
+        <div className="mb-20 grid-layout md:mb-32">
           <div className="flex flex-col justify-between h-full col-span-4 md:col-span-6">
             <TransitionLink href={`/${lang}/contact`} className="block group">
-              {/* DÜZELTME 2: 'font-sans' burada da eklendi. tracking biraz rahatlatıldı. */}
-              <h2 className="max-w-2xl mb-10 font-sans text-6xl font-normal leading-tight tracking-tight transition-opacity duration-500 md:text-8xl group-hover:opacity-50">
+              <h2 className="max-w-2xl mb-10 text-6xl font-normal leading-tight transition-opacity duration-500 md:text-8xl group-hover:opacity-50">
                 {footer.title}
               </h2>
             </TransitionLink>
           </div>
 
-          {/* Sağ: Newsletter Formu */}
           <div className="col-span-4 md:col-span-5 md:col-start-8">
-            <span className="block mb-4 font-sans text-xs uppercase opacity-40">
+            <span className="block mb-4 text-xs uppercase opacity-40">
               {footer.newsletter?.label || "Newsletter"}
             </span>
             <form className="w-full" onSubmit={(e) => e.preventDefault()}>
@@ -48,27 +43,26 @@ export default function Footer({ lang }) {
                   placeholder={
                     footer.newsletter?.placeholder || "Email Address"
                   }
-                  className="w-full py-4 font-sans text-xl transition-colors bg-transparent border-b rounded-none outline-none border-black/20 placeholder:text-black/30 group-hover:border-black"
+                  className="w-full py-4 text-xl transition-colors bg-transparent border-b rounded-none outline-none border-border placeholder:text-foreground/30 group-hover:border-foreground"
                 />
                 <button
                   type="submit"
-                  className="absolute right-0 font-sans text-xs uppercase transition-opacity -translate-y-1/2 opacity-0 top-1/2 group-hover:opacity-100"
+                  className="absolute right-0 text-xs uppercase transition-opacity -translate-y-1/2 opacity-0 top-1/2 group-hover:opacity-100"
                 >
                   {footer.newsletter?.button || "Subscribe"}
                 </button>
               </div>
             </form>
-            <p className="mt-4 font-sans text-sm opacity-40">
-              {footer.newsletter?.note || "Stay updated with our latest news."}
+            <p className="mt-4 text-sm opacity-40">
+              {footer.newsletter?.note || "Stay updated."}
             </p>
           </div>
         </div>
 
-        {/* Orta Kısım: Linkler ve Bilgiler */}
-        <div className="pt-10 mb-20 border-t main-grid md:mb-24 border-black/10">
-          {/* Sitemap */}
+        {/* ORTA KISIM */}
+        <div className="pt-10 mb-20 border-t grid-layout md:mb-24 border-border">
           <div className="col-span-2 md:col-span-3">
-            <h3 className="mb-6 font-sans text-xs uppercase opacity-40">
+            <h3 className="mb-6 text-xs uppercase opacity-40">
               {footer.links?.sitemap || "Sitemap"}
             </h3>
             <ul className="space-y-2">
@@ -76,7 +70,7 @@ export default function Footer({ lang }) {
                 <li key={index}>
                   <TransitionLink
                     href={`/${lang}${item.path}`}
-                    className="block font-sans text-lg transition-opacity hover:opacity-50 w-fit"
+                    className="block text-lg transition-opacity hover:opacity-50 w-fit"
                   >
                     {item.name}
                   </TransitionLink>
@@ -84,10 +78,8 @@ export default function Footer({ lang }) {
               ))}
             </ul>
           </div>
-
-          {/* Sosyal Medya */}
           <div className="col-span-2 md:col-span-3">
-            <h3 className="mb-6 font-sans text-xs uppercase opacity-40">
+            <h3 className="mb-6 text-xs uppercase opacity-40">
               {footer.links?.socials || "Socials"}
             </h3>
             <ul className="space-y-2">
@@ -97,7 +89,7 @@ export default function Footer({ lang }) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block font-sans text-lg transition-opacity hover:opacity-50 w-fit"
+                    className="block text-lg transition-opacity hover:opacity-50 w-fit"
                   >
                     {social.name}
                   </a>
@@ -105,13 +97,11 @@ export default function Footer({ lang }) {
               ))}
             </ul>
           </div>
-
-          {/* İletişim */}
           <div className="col-span-4 mt-10 md:col-span-3 md:mt-0">
-            <h3 className="mb-6 font-sans text-xs uppercase opacity-40">
+            <h3 className="mb-6 text-xs uppercase opacity-40">
               {footer.links?.contact || "Contact"}
             </h3>
-            <address className="space-y-2 font-sans text-lg not-italic">
+            <address className="space-y-2 text-lg not-italic">
               <a
                 href={`mailto:${content.contact.email}`}
                 className="block transition-opacity hover:opacity-50 w-fit"
@@ -121,44 +111,34 @@ export default function Footer({ lang }) {
               <p className="opacity-60">{content.contact.address}</p>
             </address>
           </div>
-
-          {/* Back to Top */}
           <div className="flex flex-col justify-end col-span-4 mt-10 md:col-span-3 md:mt-0">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="font-sans text-xs text-left uppercase transition-opacity md:text-right opacity-40 hover:opacity-100 w-fit md:ml-auto"
+              className="text-xs text-left uppercase transition-opacity md:text-right opacity-40 hover:opacity-100 w-fit md:ml-auto"
             >
               ↑ {footer.links?.legal?.backToTop || "Back to Top"}
             </button>
           </div>
         </div>
 
-        {/* 2. ALT KISIM: COPYRIGHT VE DEVASA LOGO */}
+        {/* LOGO VE COPYRIGHT */}
         <div className="mt-auto">
-          <div className="pt-4 pb-0 border-t border-black/10">
-            {/* Yasal Metinler */}
-            <div className="flex flex-col md:flex-row justify-between items-baseline text-[10px] md:text-xs opacity-40 uppercase mb-2 md:mb-0 font-sans">
+          <div className="pt-4 pb-0 border-t border-border">
+            <div className="flex flex-col md:flex-row justify-between items-baseline text-[10px] md:text-xs opacity-40 uppercase mb-2 md:mb-0">
               <span>
-                © {currentYear} XVI Interactive.{" "}
-                {footer.links?.legal?.rights || "All rights reserved."}
+                © {currentYear} XVI Interactive. {footer.links?.legal?.rights}
               </span>
               <div className="flex gap-4 mt-2 md:mt-0">
                 <Link href="#" className="hover:opacity-100">
-                  {footer.links?.legal?.privacy || "Privacy Policy"}
+                  {footer.links?.legal?.privacy}
                 </Link>
                 <Link href="#" className="hover:opacity-100">
-                  {footer.links?.legal?.terms || "Terms of Service"}
+                  {footer.links?.legal?.terms}
                 </Link>
               </div>
             </div>
-
-            {/* DEVASA LOGO (Swiss Style) */}
             <div className="w-full overflow-hidden select-none pointer-events-none mt-4 md:mt-6 -mb-[1.5vw]">
-              {/* DÜZELTME 3: font-sans burada da zorlandı */}
-              <h1
-                className="flex justify-between w-full font-medium font-sans tracking-tighter text-black
-                             text-[10.5vw] md:text-[11.2vw] leading-[0.9]"
-              >
+              <h1 className="flex justify-between w-full font-medium tracking-tighter text-foreground text-[10.5vw] md:text-[11.2vw] leading-[0.9]">
                 {logoText.map((char, index) => (
                   <span
                     key={index}

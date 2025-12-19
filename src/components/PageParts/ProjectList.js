@@ -30,7 +30,6 @@ export default function ProjectList({ projects, lang }) {
 
   return (
     <div>
-      {/* View Switcher */}
       <div className="flex justify-end gap-4 mb-10 text-sm uppercase">
         <button
           onClick={() => handleViewChange("grid")}
@@ -55,9 +54,8 @@ export default function ProjectList({ projects, lang }) {
       </div>
 
       <div ref={containerRef} className="opacity-100">
-        {/* GRID GÖRÜNÜMÜ */}
         {projectView === "grid" && (
-          <div className="main-grid section-spacing">
+          <div className="grid-layout mb-[120px]">
             {projects.map((item) => (
               <TransitionLink
                 key={item.id}
@@ -71,7 +69,7 @@ export default function ProjectList({ projects, lang }) {
                       alt={item.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 50vw"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       priority={item.id <= 4}
                     />
                   ) : (
@@ -89,7 +87,6 @@ export default function ProjectList({ projects, lang }) {
           </div>
         )}
 
-        {/* LİSTE GÖRÜNÜMÜ */}
         {projectView === "list" && (
           <div className="flex flex-col border-t border-border">
             {projects.map((item) => (

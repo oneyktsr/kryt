@@ -33,7 +33,6 @@ export default function Preloader() {
   ];
 
   useEffect(() => {
-    // Başlangıç ayarları...
     gsap.set(wrapperRef.current, { zIndex: 9999 });
     gsap.set(textContainerRef.current, {
       position: "fixed",
@@ -55,7 +54,6 @@ export default function Preloader() {
       },
     });
 
-    // SAYAÇ
     const stepDuration = 2.0 / (numerals.length - 1);
     numerals.forEach((num, index) => {
       if (index > 0) {
@@ -69,7 +67,6 @@ export default function Preloader() {
       }
     });
 
-    // INTERACTIVE
     const split = new SplitText(interactiveRef.current, { type: "chars" });
     const chars = split.chars;
     tl.set(interactiveRef.current, { opacity: 1 });
@@ -82,7 +79,6 @@ export default function Preloader() {
       ease: "power3.out",
     });
 
-    // Silinme
     tl.add(() => {
       const vanishChars = chars.slice(3);
       gsap.to(vanishChars, {
@@ -98,7 +94,6 @@ export default function Preloader() {
 
     tl.to({}, { duration: 0.5 });
 
-    // Yerine Oturma
     const moveDuration = 1.6;
     const easeType = "power4.inOut";
 
@@ -141,7 +136,7 @@ export default function Preloader() {
 
       <div
         ref={textContainerRef}
-        className="flex items-baseline text-white pointer-events-none layout-padding will-change-transform mix-blend-difference"
+        className="fixed left-0 w-full flex items-baseline h-nav layout-padding pointer-events-none will-change-transform mix-blend-difference z-[10000] text-white"
       >
         <span
           ref={textRef}
@@ -149,7 +144,6 @@ export default function Preloader() {
         >
           I
         </span>
-
         <div
           ref={interactiveWrapperRef}
           className="ml-[1.5vw] md:ml-8"
